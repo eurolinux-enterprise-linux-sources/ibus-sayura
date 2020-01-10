@@ -1,0 +1,61 @@
+Name:       @PACKAGE_NAME@
+Version:    @PACKAGE_VERSION@
+Release:    1%{?dist}
+Summary:    The Sinhala engine for IBus input platform
+License:    GPLv2+
+Group:      System Environment/Libraries
+URL:        https://fedorahosted.org/ibus-sayura
+Source0:    https://fedorahosted.org/releases/i/b/ibus-sayura/%{name}-%{version}.tar.gz
+
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  gettext-devel
+BuildRequires:  libtool
+BuildRequires:  pkgconfig
+BuildRequires:  ibus-devel
+
+Requires:   ibus
+
+%description
+The Sayura engine for IBus platform. It provides Sinhala input method.
+
+%prep
+%setup -q
+
+%build
+%configure --disable-static
+# make -C po update-gmo
+make %{?_smp_mflags}
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+
+%find_lang %{name}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files -f %{name}.lang
+%defattr(-,root,root,-)
+%doc AUTHORS COPYING README
+%{_libexecdir}/ibus-engine-sayura
+%{_datadir}/@PACKAGE@
+%{_datadir}/ibus/component/*
+
+%changelog
+* Wed Mar 27 2013 Pravin Satpute <psatpute@redhat.com> - @VERSION@-1
+- support for aarch64, configuring with autoconf-2.69
+
+* Fri Jul 16 2010 Pravin Satpute <psatpute@redhat.com> - @VERSION@-1
+- fixed crash on 64 bit platform
+- fixed right shift key issue
+
+* Tue Feb 09 2010 Pravin Satpute <psatpute@redhat.com> - @VERSION@-1
+- updated patches for code enhancements from phuang for ibus-1.2.99
+
+* Thu Mar 26 2009 Pravin Satpute <psatpute@redhat.com> - @VERSON@-2
+- updated as per fedora spec review
+
+* Fri Mar 20 2009 Pravin Satpute <psatpute@redhat.com> - @VERSION@-1
+- The first version.
