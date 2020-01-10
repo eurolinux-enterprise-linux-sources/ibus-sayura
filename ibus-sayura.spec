@@ -1,6 +1,6 @@
 Name:       ibus-sayura
 Version:    1.3.2
-Release:    1%{?dist}
+Release:    3%{?dist}
 Summary:    The Sinhala engine for IBus input platform
 License:    GPLv2+
 Group:      System Environment/Libraries
@@ -36,6 +36,12 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/ibus/component/*
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.3.2-3
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.3.2-2
+- Mass rebuild 2013-12-27
+
 * Wed Mar 27 2013 Pravin Satpute <psatpute@redhat.com> - 1.3.2-1
 - configured with autoconf-2.69
 
